@@ -22,9 +22,14 @@ class lint(Command):
     def finalize_options(self):
         pass
 
-    def run(self):
-        pass
+    def pep8(self):
+        from pep8 import StyleGuide
 
+        sg = StyleGuide()
+        sg.input_dir('aragog')
+
+    def run(self):
+        self.pep8()
 
 setup(
     name="aragog",

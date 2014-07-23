@@ -4,9 +4,27 @@ Aragog
 
 A collection of URL routers for Python.
 """
-from setuptools import setup
+from setuptools import Command, setup
 
 import aragog
+
+
+class lint(Command):
+    """
+    Run python linting commands: pep8 & pyflakes on source tree
+    """
+    description = "Lint source code with python linters"
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        pass
+
 
 setup(
     name="aragog",
@@ -20,4 +38,5 @@ setup(
     install_requires=[],
     long_description=open("README.rst").read(),
     test_suite="test",
+    cmdclass={'lint': lint},
 )

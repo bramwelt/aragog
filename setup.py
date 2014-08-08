@@ -30,6 +30,7 @@ class lint(Command):
 
     def run(self):
         self.pep8()
+        print "> lint complete"
 
 setup(
     name="aragog",

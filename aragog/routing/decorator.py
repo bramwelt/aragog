@@ -6,9 +6,6 @@ Aragog Router Decorator
 Convert any function into a WSGI endpoint with a simple decorator.
 """
 
-from wsgiref.simple_server import make_server
-from urlparse import urlsplit
-
 from aragog.wsgi import get_url
 from aragog.routing.client_error import HTTP404
 
@@ -51,28 +48,3 @@ class Router(object):
             self.add_route(uri, f)
             return f
         return app_wrapper
-
-router = Router()
-
-@router.route("/")
-def simple_app(environ, start_response):
-    """Simplest possible application object"""
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/plain')]
-    start_response(status, response_headers)
-    return ["hello, world!\n"]
-
-
-@router.route("/foo")
-def foo_app(environ, start_response):
-    """Foo application. Outputs 'foobar!'"""
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/plain')]
-    start_response(status, response_headers)
-    return ["foobar!\n"]
-
-
-if __name__ == "__main__":
-    httpd = make_server('', 8080, router)
-    print "Server started on 8080."
-    httpd.serve_forever()

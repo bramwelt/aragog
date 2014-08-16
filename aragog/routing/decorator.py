@@ -43,6 +43,16 @@ def simple_app(environ, start_response):
     start_response(status, response_headers)
     return ["hello, world!\n"]
 
+
+@route("/foo")
+def foo_app(environ, start_response):
+    """Foo application. Outputs 'foobar!'"""
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    start_response(status, response_headers)
+    return ["foobar!\n"]
+
+
 if __name__ == "__main__":
     httpd = make_server('', 8080, simple_app)
     print "Server started on 8080."

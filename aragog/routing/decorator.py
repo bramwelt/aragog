@@ -10,32 +10,64 @@ from wsgiref.simple_server import make_server
 from urlparse import urlsplit
 
 
-def endpoint404(environ, start_response):
-    status = '404 NOTFOUND'
-    response_headers = [('Content-type', 'text/plain')]
-    start_response(status, response_headers)
-    return []
-
-
-def route(uri):
+class HTTP404(object):
     """
-    Route a request to a function
-
-    :param: uri
-    :param_type: string
+    HTTP 404 Response
     """
-    def app_wrapper(f):
-        def app(environ, start_response):
-            url = environ.get('PATH_INFO', '')
-            path = urlsplit(url).path
-            if uri == path:
-                return f(environ, start_response)
-            return endpoint404(environ, start_response)
-        return app
-    return app_wrapper
+
+    def __call__(self, environ, start_response):
+        start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
+        return ['']
 
 
-@route("/")
+def get_url(environ):
+    """
+    Extract the path from a URL
+    """
+    return urlsplit(environ['PATH_INFO']).path
+
+class Router(object):
+    """
+    Router holds the mapping of routes to callables.
+    """
+
+    def __init__(self):
+        """
+        Instance level route mapping
+        """
+        self.mapping = {}
+
+    def __call__(self, environ, start_response):
+        """
+        Get a WSGI request, and pass it on to the correct callable.
+        """
+        routing = self.mapping.get(get_url(environ), HTTP404())
+        return routing(environ, start_response)
+
+    def add_route(self, url, func):
+        """
+        Adds a route to the mapping
+        """
+        if url not in self.mapping:
+            self.mapping[url] = func
+        else:
+            raise KeyError("Route already exists: {}".format(url))
+
+    def route(self, uri):
+        """
+        Route a request to a function
+
+        :param: uri
+        :param_type: string
+        """
+        def app_wrapper(f):
+            self.add_route(uri, f)
+            return f
+        return app_wrapper
+
+router = Router()
+
+@router.route("/")
 def simple_app(environ, start_response):
     """Simplest possible application object"""
     status = '200 OK'
@@ -44,7 +76,7 @@ def simple_app(environ, start_response):
     return ["hello, world!\n"]
 
 
-@route("/foo")
+@router.route("/foo")
 def foo_app(environ, start_response):
     """Foo application. Outputs 'foobar!'"""
     status = '200 OK'
@@ -54,6 +86,6 @@ def foo_app(environ, start_response):
 
 
 if __name__ == "__main__":
-    httpd = make_server('', 8080, simple_app)
+    httpd = make_server('', 8080, router)
     print "Server started on 8080."
     httpd.serve_forever()

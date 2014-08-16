@@ -3,11 +3,9 @@ Client Error HTTP Status Callables
 """
 
 
-class HTTP404(object):
+def HTTP404(environ, start_response):
     """
     HTTP 404 Response
     """
-
-    def __call__(self, environ, start_response):
-        start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
-        return ['']
+    start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
+    return ['']

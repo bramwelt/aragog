@@ -2,6 +2,7 @@
 Client Error HTTP Status Callables
 """
 
+
 class HTTP404(object):
     """
     HTTP 404 Response

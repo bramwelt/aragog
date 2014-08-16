@@ -9,6 +9,8 @@ Convert any function into a WSGI endpoint with a simple decorator.
 from wsgiref.simple_server import make_server
 from urlparse import urlsplit
 
+from aragog.wsgi import get_url
+
 
 class HTTP404(object):
     """
@@ -19,12 +21,6 @@ class HTTP404(object):
         start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
         return ['']
 
-
-def get_url(environ):
-    """
-    Extract the path from a URL
-    """
-    return urlsplit(environ['PATH_INFO']).path
 
 class Router(object):
     """

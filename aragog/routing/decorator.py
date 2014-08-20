@@ -25,7 +25,7 @@ class Router(object):
         """
         Get a WSGI request, and pass it on to the correct callable.
         """
-        routing = self.mapping.get(get_url(environ), HTTP404())
+        routing = self.mapping.get(get_url(environ), HTTP404)
         return routing(environ, start_response)
 
     def add_route(self, url, func):

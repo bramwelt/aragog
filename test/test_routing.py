@@ -3,7 +3,6 @@ Tests against the URL Router
 """
 
 from wsgiref.simple_server import make_server
-from urlparse import urlsplit
 
 from aragog.routing.decorator import Router
 

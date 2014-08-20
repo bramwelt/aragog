@@ -1,6 +1,7 @@
 """
 A Collection of WSGI Helpers
 """
+from urlparse import urlsplit
 
 
 def get_url(environ):

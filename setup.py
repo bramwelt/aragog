@@ -42,7 +42,8 @@ setup(
     packages=['aragog'],
     license="Apache2",
     install_requires=[],
+    tests_require=['mock'],
     long_description=open("README.rst").read(),
-    test_suite="test",
+    test_suite="test.unit",
     cmdclass={'lint': lint},
 )

@@ -24,6 +24,12 @@ class Router(object):
     def __call__(self, environ, start_response):
         """
         Get a WSGI request, and pass it on to the correct callable.
+
+        :param dict environ: The WSGI environ.
+        :param callable start_response: The start_response callable for
+            a WSGI application.
+        :return: The WSGI application mapped to the URL in the environ.
+        :rtype: callable
         """
         url = get_url(environ)
         routing, methods = self.mapping.get(url, (HTTP404, http_methods))
@@ -34,6 +40,11 @@ class Router(object):
     def add_route(self, url, func, methods):
         """
         Adds a route to the mapping
+
+        :param str url: Route func should be attached at.
+        :param callable func: Function route will be attached to.
+        :param list methods: Accepted HTTP methods.
+        :return: None
         """
         if url not in self.mapping:
             self.mapping[url] = (func, methods)
@@ -44,10 +55,9 @@ class Router(object):
         """
         Route a request to a function
 
-        :param: uri
-        :param_type: string
-        :param: methods
-        :param_type: list of strings
+        :param string uri: URI the function can be called from.
+        :param list methods: List of HTTP methods the route will accept.
+        :return: A wrapped function.
         """
         m = ["HEAD"]
         m.extend(methods)

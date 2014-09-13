@@ -42,7 +42,6 @@ setup(
     packages=['aragog', 'aragog.routing'],
     license="Apache2",
     install_requires=[],
-    tests_require=['mock'],
     long_description=open("README.rst").read(),
     test_suite="test",
     cmdclass={'lint': lint},

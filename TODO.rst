@@ -1,6 +1,12 @@
 TODO
 ====
 
+ - [ ] File Based: Create a file based URL router, and define the
+           conventions surrounding it.
+ 
+ - [ ] RESTFUL/Class Based: Creat a class based URL router that defines
+           a specific class interfaces.
+
  - [ ] URL Variables: Allow for the matching and converting of
            URL arguments such as: string, int, and UUID.
  

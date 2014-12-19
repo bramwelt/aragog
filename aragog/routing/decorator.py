@@ -8,18 +8,20 @@ Convert any function into a WSGI endpoint with a simple decorator.
 
 from aragog.wsgi import get_url, http_methods
 from aragog.routing.client_error import HTTP404, HTTP405
+from aragog.routing.mapping import URLMap
 
 
-class Router(object):
+class Router(URLMap):
     """
     Router holds the mapping of routes to callables.
     """
 
     def __init__(self):
         """
-        Instance level route mapping
+        Creates the mapping required for `add_route` to work.
         """
-        self.mapping = {}
+        self.mapping = dict()
+        self.methods = dict()
 
     def __call__(self, environ, start_response):
         """

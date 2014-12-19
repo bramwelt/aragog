@@ -2,11 +2,19 @@
 Integration Tests for Decorator Routing
 """
 
-from aragog import Router
+from aragog.routing.decorator import Router
 
 from webtest import TestApp
 
 import unittest
+
+
+router = Router()
+
+@router.route('/foo')
+def home(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/plain')])
+    return ['Hello, world!']
 
 
 class TestDecorator(unittest.TestCase):
@@ -18,13 +26,7 @@ class TestDecorator(unittest.TestCase):
         """
         Start each test with a new Router instance
         """
-        self.router = Router()
-        self.app = TestApp(self.router)
-
-        @self.router.route('/foo')
-        def home(environ, start_response):
-            start_response('200 OK', [('Content-Type', 'text/plain')])
-            return ['Hello, world!']
+        self.app = TestApp(router)
 
     def test_root_route(self):
         """
@@ -35,7 +37,7 @@ class TestDecorator(unittest.TestCase):
         self.assertEqual(resp.status_int, 200)
         self.assertEqual(resp.content_type, 'text/plain')
         self.assertIn('wor', resp)
-        self.assertEqual(1, len(self.router.mapping))
+        self.assertEqual(1, len(router.mapping))
 
     def test_route_not_found(self):
         """
@@ -58,7 +60,7 @@ class TestDecorator(unittest.TestCase):
             resp = self.app.request('/foo', method=method, status=405)
             self.assertEqual(resp.status_int, 405)
 
-    @unittest.skip("Routing does not return HTTP 501 NOT IMPLEMENTED yet")
+    @unittest.skip("WebTest does not support HTTP 501 NOT IMPLEMENTED yet")
     def test_not_implemented(self):
         """
         WebTest to check response returns 'NOT IMPLEMENTED' on

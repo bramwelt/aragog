@@ -9,8 +9,8 @@ each function, along with the name of the route.
 
 For example::
 
-    @route('blog')
-    def index():
+    @route('/blog')
+    def index(environ, start_response):
         return "Welcome to my blog!"
 
 This will register a single route ``/blog`` that will run the function

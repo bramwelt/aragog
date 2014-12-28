@@ -2,19 +2,11 @@
 Integration Tests for Decorator Routing
 """
 
-from aragog.routers.decorator import Router
+from fixtures import router
 
 from webtest import TestApp
 
 import unittest
-
-
-router = Router()
-
-@router.route('/foo')
-def home(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return ['Hello, world!']
 
 
 class TestDecorator(unittest.TestCase):

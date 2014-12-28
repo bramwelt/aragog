@@ -63,7 +63,9 @@ class Router(URLMap):
         """
         m = ["HEAD"]
         m.extend(methods)
+
         def app_wrapper(f):
             self.add_route(uri, f, m)
             return f
+
         return app_wrapper

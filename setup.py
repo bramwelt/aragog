@@ -39,7 +39,7 @@ setup(
     version=".".join(aragog.__version__),
     author="Trevor Bramwell",
     author_email="trevor@bramwell.net",
-    packages=['aragog', 'aragog.routing'],
+    packages=['aragog', 'aragog.routers'],
     license="Apache2",
     install_requires=[],
     long_description=open("README.rst").read(),

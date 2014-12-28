@@ -8,7 +8,7 @@ Convert any function into a WSGI endpoint with a simple decorator.
 
 from aragog.util import get_url, http_methods
 from aragog.errors import HTTP404, HTTP405
-from aragog.routing.mapping import URLMap
+from aragog.routers.mapping import URLMap
 
 
 class Router(URLMap):

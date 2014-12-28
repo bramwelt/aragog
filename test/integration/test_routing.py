@@ -2,7 +2,7 @@
 Integration Tests for Decorator Routing
 """
 
-from aragog.routing.decorator import Router
+from aragog.routers.decorator import Router
 
 from webtest import TestApp
 

@@ -6,8 +6,8 @@ Aragog Router Decorator
 Convert any function into a WSGI endpoint with a simple decorator.
 """
 
-from aragog.wsgi import get_url, http_methods
-from aragog.routing.client_error import HTTP404, HTTP405
+from aragog.util import get_url, http_methods
+from aragog.errors import HTTP404, HTTP405
 from aragog.routing.mapping import URLMap
 
 

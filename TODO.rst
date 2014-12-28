@@ -1,9 +1,6 @@
 TODO
 ====
 
- - Reorganize code so that routing classes are only thing under
-   'routing'.
-
  - Create good, solid, testing infrastructure: Unit tests, Integration
    test, CI.
 

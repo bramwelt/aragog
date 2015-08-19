@@ -27,6 +27,7 @@ class lint(Command):
 
         sg = StyleGuide()
         sg.input_dir('aragog')
+        sg.input_dir('test')
 
     def run(self):
         self.pep8()

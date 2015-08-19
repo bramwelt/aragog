@@ -44,5 +44,6 @@ setup(
     install_requires=[],
     long_description=open("README.rst").read(),
     test_suite="test",
+    tests_require=["webtest"],
     cmdclass={'lint': lint},
 )
